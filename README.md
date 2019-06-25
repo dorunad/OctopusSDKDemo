@@ -3,9 +3,8 @@
 [![release-image]][release-url]
 [![minSdkVersion-image]][minSdkVersion-url]
 
-+ [简介](#简介)
 
-## 简介{#toc_1}
+## 简介
 **版本历史**
 
 | 版本         | 修订日期          | 说明  |

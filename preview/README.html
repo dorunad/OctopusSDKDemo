@@ -1,0 +1,157 @@
+<html>
+  <head>
+	  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>i5ting_ztree_toc:README</title>
+		<link href="toc/style/github-bf51422f4bb36427d391e4b75a1daa083c2d840e.css" media="all" rel="stylesheet" type="text/css"/>
+		<link href="toc/style/github2-d731afd4f624c99a4b19ad69f3083cd6d02b81d5.css" media="all" rel="stylesheet" type="text/css"/>
+		<link href="toc/css/zTreeStyle/zTreeStyle.css" media="all" rel="stylesheet" type="text/css"/>
+	  <style>
+		pre {
+		    counter-reset: line-numbering;
+		    border: solid 1px #d9d9d9;
+		    border-radius: 0;
+		    background: #fff;
+		    padding: 0;
+		    line-height: 23px;
+		    margin-bottom: 30px;
+		    white-space: pre;
+		    overflow-x: auto;
+		    word-break: inherit;
+		    word-wrap: inherit;
+		}
+
+		pre a::before {
+		  content: counter(line-numbering);
+		  counter-increment: line-numbering;
+		  padding-right: 1em; /* space after numbers */
+		  width: 25px;
+		  text-align: right;
+		  opacity: 0.7;
+		  display: inline-block;
+		  color: #aaa;
+		  background: #eee;
+		  margin-right: 16px;
+		  padding: 2px 10px;
+		  font-size: 13px;
+		  -webkit-touch-callout: none;
+		  -webkit-user-select: none;
+		  -khtml-user-select: none;
+		  -moz-user-select: none;
+		  -ms-user-select: none;
+		  user-select: none;
+		}
+
+		pre a:first-of-type::before {
+		  padding-top: 10px;
+		}
+
+		pre a:last-of-type::before {
+		  padding-bottom: 10px;
+		}
+
+		pre a:only-of-type::before {
+		  padding: 10px;
+		}
+
+		.highlight { background-color: #ffffcc } /* RIGHT */
+		</style>
+  </head>
+  <body>
+	  <div>
+				<div style='width:25%;'>
+						<ul id="tree" class="ztree" style='width:100%'>
+
+						</ul>
+				</div>
+        <div id='readme' style='width:70%;margin-left:20%;'>
+          	<article class='markdown-body'>
+            	<h3>OctopusSDKDemo Android</h3>
+
+<p><a href="https://github.com/dorunad/OctopusSDKDemo/tree/master/app/libs"><img src="https://img.shields.io/badge/release-v1.0.1-brightgreen.svg" alt="release-image"></a>
+<a href="https://android-arsenal.com/api?level=14"><img src="https://img.shields.io/badge/minSdkVersion-14-yellowgreen.svg" alt="minSdkVersion-image"></a></p>
+<h2 id="-">简介</h2>
+<p><strong>版本历史</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">版本</th>
+<th style="text-align:center">修订日期</th>
+<th style="text-align:center">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">v1.0.1</td>
+<td style="text-align:center">2019/6</td>
+<td style="text-align:center">初版</td>
+</tr>
+</tbody>
+</table>
+<p>东润移动广告SDk(Android)是官方推出的移动广告SDK在Android平台上的版本（以下简称SDK）。</p>
+<p>SDK的发行版本包括 AAR 包、<a href="https://github.com/dorunad/OctopusSDKDemo">Demo 示例</a>、接入文档（您当前阅读的文档）。</p>
+<p>:zap:Demo下的SDK为通用测试版，仅用于接入测试，不计费。上线前，请先联系合作方获取定制的发布版SDK。:zap:</p>
+<h2 id="-">运行环境</h2>
+<p>可运行于<code>Android 4.0(API level 14)</code>及以上版本。</p>
+<h2 id="sdk-">SDK包导入及权限配置</h2>
+<h3 id="-aar-">导入aar包</h3>
+<p>以AndroidStudio为例。将广告的aar包复制到您工程的 libs 目录下，在对应的 build.gradle 文件里面添加如下配置：</p>
+<pre><code class="lang-gradle">
+repositories {
+    flatDir {
+        dirs &#39;libs&#39;
+    }
+}
+
+dependencies {
+    implementation(name:&#39;OctopusADSDK_v1.0.1_debug&#39;,ext:&#39;aar&#39;)
+}
+</code></pre>
+<p>点击 <code>Sync Now</code> 等待同步结束。</p>
+<h3 id="-">添加权限</h3>
+<p>如果您打包 App 时的 targetSdkVersion &gt;= 23：请先获取到 SDK 要求的所有权限，然后再调用 SDK 的广告接口。
+否则 SDK 将无法工作，我们建议您在 App 启动时就去获取 SDK 需要的权限，Demo 工程中的 SplashActivity 也提供了基本的权限处理示例代码供开发者参考。</p>
+<pre><code class="lang-xml">&lt;manifest&gt;
+    &lt;!--必须要有的权限--&gt;
+    &lt;uses-permission android:name=&quot;android.permission.INTERNET&quot; /&gt;
+    &lt;uses-permission android:name=&quot;android.permission.AUTHENTICATE_ACCOUNTS&quot; /&gt;
+    &lt;uses-permission android:name=&quot;android.permission.WRITE_SYNC_SETTINGS&quot; /&gt;
+    &lt;uses-permission android:name=&quot;android.permission.READ_PHONE_STATE&quot; /&gt;
+    &lt;uses-permission android:name=&quot;android.permission.ACCESS_NETWORK_STATE&quot; /&gt;
+    &lt;uses-permission android:name=&quot;android.permission.ACCESS_WIFI_STATE&quot; /&gt;
+    &lt;uses-permission android:name=&quot;android.permission.BLUETOOTH&quot; /&gt;
+    &lt;uses-permission android:name=&quot;android.permission.ACCESS_COARSE_LOCATION&quot; /&gt;
+    &lt;!-- 精确定位 --&gt;
+    &lt;uses-permission android:name=&quot;android.permission.ACCESS_FINE_LOCATION&quot; /&gt;
+    &lt;uses-permission android:name=&quot;android.permission.WRITE_EXTERNAL_STORAGE&quot; /&gt;
+    &lt;!-- targetSdkVersion &gt;= 26 时需要配置此权限，否则无法进行安装app的动作 --&gt;
+    &lt;uses-permission android:name=&quot;android.permission.REQUEST_INSTALL_PACKAGES&quot; /&gt;
+    &lt;uses-permission android:name=&quot;android.permission.GET_TASKS&quot; /&gt;
+    &lt;!-- 如果有视频相关的广告且使用textureView播放，请务必添加，否则黑屏 --&gt;
+    &lt;uses-permission android:name=&quot;android.permission.WAKE_LOCK&quot; /&gt;
+&lt;/manifest&gt;
+</code></pre>
+<h2 id="-">广告接入</h2>
+<h3 id="-">初始化</h3>
+<p>在调用SDK代码前，调用初始化方法。</p>
+
+          	</article>
+        </div>
+		</div>
+  </body>
+</html>
+<script type="text/javascript" src="toc/js/jquery-1.4.4.min.js"></script>
+<script type="text/javascript" src="toc/js/jquery.ztree.all-3.5.min.js"></script>
+<script type="text/javascript" src="toc/js/ztree_toc.js"></script>
+<script type="text/javascript" src="toc_conf.js"></script>
+
+<SCRIPT type="text/javascript" >
+<!--
+$(document).ready(function(){
+    var css_conf = eval(markdown_panel_style);
+    $('#readme').css(css_conf)
+    
+    var conf = eval(jquery_ztree_toc_opts);
+		$('#tree').ztree_toc(conf);
+});
+//-->
+</SCRIPT>

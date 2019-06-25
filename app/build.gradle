@@ -3,18 +3,67 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 28
     defaultConfig {
-        applicationId "com.dr.octopussdkdemo"
+        applicationId "com.dorunad.lxad"
         minSdkVersion 14
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
-    buildTypes {
+    signingConfigs {
         release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            storeFile file("app/lxadtest.jks")
+            storePassword "dorunadtest"
+            keyAlias "东润"
+            keyPassword "dorunadtest"
+            v2SigningEnabled true
         }
+    }
+    buildTypes {
+        debug {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+
+            android.applicationVariants.all { variant ->
+                variant.outputs.all {
+                    if (variant.name.endsWith("debug")) {
+                        //debug包
+                        outputFileName = "OctopusADSDKDemo_v${defaultConfig.versionName}_${variant.buildType.name}_${nowTime()}.apk"
+                    } else {
+                        //release包
+                        outputFileName = "OctopusADSDKDemo_v${defaultConfig.versionName}_${nowTime()}.apk"
+                    }
+                }
+            }
+        }
+    }
+
+    dataBinding {
+        enabled = true
+    }
+
+    packagingOptions {
+        pickFirst 'META-INF/DEPENDENCIES.txt'
+        pickFirst 'META-INF/DEPENDENCIES'
+        pickFirst 'META-INF/LICENSE.txt'
+        pickFirst 'META-INF/LICENSE'
+        pickFirst 'META-INF/NOTICE.txt'
+        pickFirst 'META-INF/NOTICE'
+    }
+
+    compileOptions {
+        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+repositories {
+    flatDir {
+        dirs 'libs'
     }
 }
 
@@ -25,4 +74,10 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+
+    implementation 'com.github.bumptech.glide:glide:4.7.1'
+    implementation(name: 'OctopusADSDK_v1.0.1_debug', ext: 'aar')
+}
+def static nowTime() {
+    return new Date().format("yyyyMMdd", TimeZone.getTimeZone("UTC"))
 }

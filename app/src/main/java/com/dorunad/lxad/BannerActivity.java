@@ -23,6 +23,7 @@ public class BannerActivity extends BaseActivity<ActivityBannerBinding> {
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setTitle("BANNER AD");
         }
     }
 

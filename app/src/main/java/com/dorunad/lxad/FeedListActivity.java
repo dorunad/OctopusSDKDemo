@@ -22,6 +22,7 @@ public class FeedListActivity extends BaseActivity<ActivityFeedListBinding> {
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setTitle("FEED AD");
         }
     }
 

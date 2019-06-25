@@ -59,10 +59,10 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding> {
      * <p>
      * Android6.0以上的权限适配简单示例：
      * <p>
-     * 如果targetSDKVersion >= 23，那么必须要申请到所需要的权限，再调用广点通SDK，否则广点通SDK不会工作。
+     * 如果targetSDKVersion >= 23，那么必须要申请到所需要的权限，再调用SDK，否则SDK不会工作，可能会抛异常。
      * <p>
      * Demo代码里是一个基本的权限申请示例，请开发者根据自己的场景合理地编写这部分代码来实现权限申请。
-     * 注意：下面的`checkSelfPermission`和`requestPermissions`方法都是在Android6.0的SDK中增加的API，如果您的App还没有适配到Android6.0以上，则不需要调用这些方法，直接调用广点通SDK即可。
+     * 注意：下面的`checkSelfPermission`和`requestPermissions`方法都是在Android6.0的SDK中增加的API，如果您的App还没有适配到Android6.0以上，则不需要调用这些方法，直接调用SDK即可。
      */
     @TargetApi(Build.VERSION_CODES.M)
     public static boolean checkAndRequestPermission(Activity activity) {
@@ -115,37 +115,59 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding> {
         }
     }
 
+    /**
+     * 获取开屏广告
+     */
     private void fetchSplashAD() {
-        mOSplash = new OSplash(this,  mViewBinding.content);
+        //1.实例化开屏广告
+        mOSplash = new OSplash(this, mViewBinding.content);
+        //2.设置加载监听
         mOSplash.setOSplashListener(new OSplashListener() {
+            /**
+             * 广告加载
+             */
             @Override
             public void onAdLoad() {
                 showToast("广告加载");
             }
 
+            /**
+             * 广告跳过：包括倒计时结束跳过和手动跳过
+             */
             @Override
             public void onAdSkip() {
                 gotoMainActivity();
             }
 
+            /**
+             * 广告异常
+             * @param e 异常类
+             */
             @Override
             public void onNoAd(OAdException e) {
                 gotoMainActivity();
 
-                showToast("Error：" + e.getErrorCode()+" "+e.getMsg());
+                showToast("Error：" + e.getErrorCode() + " " + e.getMsg());
             }
 
+            /**
+             * 广告展示
+             */
             @Override
             public void onAdShow() {
                 showToast("广告展示");
             }
 
+            /**
+             * 广告被点击
+             */
             @Override
             public void onAdClicked() {
                 isAdClicked = true;
                 showToast("广告被点击");
             }
         });
+        //3.加载广告
         mOSplash.load();
     }
 

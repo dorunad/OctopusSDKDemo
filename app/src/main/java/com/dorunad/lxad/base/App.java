@@ -25,7 +25,11 @@ public class App extends Application {
     }
 
     private void initOctopusSDK() {
-        // SDK初始化 isDebug开启SDK日志 正式上线前关闭
+        /**
+         * SDK初始化
+         * public OctopusADSDK init(Context context, boolean isDebug)
+         * isDebug为开启测试模式（不计费），开启SDK日志 正式上线前关闭!
+         */
         OctopusADSDK.getInstance().init(this, true);
     }
 }

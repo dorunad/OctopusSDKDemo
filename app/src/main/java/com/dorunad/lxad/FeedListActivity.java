@@ -38,38 +38,58 @@ public class FeedListActivity extends BaseActivity<ActivityFeedListBinding> {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_refresh:
-                fetchFeedListAD();
+                showLoading();
+                //3.加载广告
+                mOFeedList.load();
                 break;
         }
     }
 
+    /**
+     * 获取信息流广告
+     */
     private void fetchFeedListAD() {
         showLoading();
+        //1.实例化信息流广告
         mOFeedList = new OFeedList(this, mViewBinding.flContainer);
-
-        mOFeedList.load();
+        //2.设置信息流广告创意监听
         mOFeedList.setOInteractionListener(new OFeedList.OInteractionListener() {
+            /**
+             * 广告加载
+             */
             @Override
             public void onAdLoad() {
                 hideLoading();
             }
 
+            /**
+             * 广告展示
+             */
             @Override
             public void onAdShow() {
                 showToast("广告展示");
             }
 
+            /**
+             * 广告被点击
+             */
             @Override
             public void onAdClicked() {
                 showToast("广告被点击");
             }
 
+            /**
+             * 广告异常
+             * @param e
+             */
             @Override
             public void onNoAd(OAdException e) {
                 hideLoading();
                 showToast("Error：" + e.getErrorCode() + " " + e.getMsg());
             }
         });
+        //3.加载广告
+        mOFeedList.load();
     }
 
     @Override
@@ -88,7 +108,11 @@ public class FeedListActivity extends BaseActivity<ActivityFeedListBinding> {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        /**
+         * 务必销毁
+         */
         if (mOFeedList != null) {
+            //4.销毁。释放资源
             mOFeedList.destroy();
         }
     }

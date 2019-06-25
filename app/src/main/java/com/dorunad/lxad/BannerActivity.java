@@ -37,34 +37,56 @@ public class BannerActivity extends BaseActivity<ActivityBannerBinding> {
     }
 
     public void onClick(View view) {
-        fetchBannerAD();
+        //3.加载广告
+        showLoading();
+        mOBanner.load();
     }
 
+    /**
+     * 获取Banner广告
+     */
     private void fetchBannerAD() {
         showLoading();
-        mOBanner = new OBanner(this,  mViewBinding.bannerContainer);
+        //1.实例化Banner广告
+        mOBanner = new OBanner(this, mViewBinding.bannerContainer);
+        //2.设置加载监听
         mOBanner.setOBannerListener(new OBannerListener() {
+            /**
+             * 广告加载
+             */
             @Override
             public void onAdLoad() {
                 hideLoading();
                 showToast("广告加载");
             }
+
+            /**
+             * 广告展示
+             */
             @Override
             public void onAdShow() {
                 showToast("广告展示");
             }
 
+            /**
+             * 广告被点击
+             */
             @Override
             public void onAdClicked() {
                 showToast("广告被点击");
             }
 
+            /**
+             * 广告异常
+             * @param e 异常类
+             */
             @Override
             public void onNoAd(OAdException e) {
                 hideLoading();
-                showToast("Error：" + e.getErrorCode()+" "+e.getMsg());
+                showToast("Error：" + e.getErrorCode() + " " + e.getMsg());
             }
         });
+        //3.加载广告
         mOBanner.load();
     }
 
@@ -84,7 +106,11 @@ public class BannerActivity extends BaseActivity<ActivityBannerBinding> {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        /**
+         * 务必销毁
+         */
         if (mOBanner != null) {
+            //4.销毁。释放资源
             mOBanner.destroy();
         }
     }

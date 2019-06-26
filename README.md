@@ -1,10 +1,55 @@
+<!------->
+<!--html:-->
+  <!--embed_local_images: false-->
+  <!--embed_svg: true-->
+  <!--offline: false-->
+  <!--toc: true-->
+
+<!--toc:-->
+  <!--depth_from: 1-->
+  <!--depth_to: 6-->
+  <!--ordered: false-->
+
+<!--export_on_save:-->
+  <!--html: true-->
+<!------->
 # OctopusSDKDemo Android
 
-[![release-image]][release-url]
-[![minSdkVersion-image]][minSdkVersion-url]
+[![release-image]][release-url] [![minSdkVersion-image]][minSdkVersion-url]
 
 
-## 简介
+<!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+
+<!-- code_chunk_output -->
+
+- [ OctopusSDKDemo Android
+](#octopussdkdemo-android)
+  - [ 1. 简介
+](#1-简介)
+  - [ 2. 运行环境
+](#2-运行环境)
+  - [ 3. SDK包导入及权限配置
+](#3-sdk包导入及权限配置)
+    - [ 3.1 导入aar包
+](#31-导入aar包)
+    - [ 3.2 添加权限
+](#32-添加权限)
+  - [ 4. 广告接入
+](#4-广告接入)
+    - [ 4.1 初始化
+](#41-初始化)
+    - [ 4.2 开屏广告
+](#42-开屏广告)
+    - [ 4.3 Banner广告
+](#43-banner广告)
+    - [ 4.4 信息流广告
+](#44-信息流广告)
+
+<!-- /code_chunk_output -->
+
+
+
+## 1. 简介
 **版本历史**
 
 | 版本         | 修订日期          | 说明  |
@@ -17,12 +62,12 @@ SDK的发行版本包括 AAR 包、Demo 示例、接入文档（您当前阅读�
 
 :zap:Demo下的SDK为通用测试版，仅用于接入测试，不计费。上线前，请先联系合作方获取定制的发布版SDK。:zap:
 
-## 运行环境
+## 2. 运行环境
 
 可运行于`Android 4.0(API level 14)`及以上版本。
 
-## SDK包导入及权限配置
-### 导入aar包
+## 3. SDK包导入及权限配置
+### 3.1 导入aar包
 以AndroidStudio为例。将广告的aar包复制到您工程的 libs 目录下，在对应的 build.gradle 文件里面添加如下配置：
 ```gradle
 repositories {
@@ -37,7 +82,7 @@ dependencies {
 ```
 点击 `Sync Now` 等待同步结束。
 
-### 添加权限
+### 3.2 添加权限
 如果您打包 App 时的 targetSdkVersion >= 23：请先获取到 SDK 要求的所有权限，然后再调用 SDK 的广告接口。
 否则 SDK 将无法工作，我们建议您在 App 启动时就去获取 SDK 需要的权限，Demo 工程中的 SplashActivity 也提供了基本的权限处理示例代码供开发者参考。
 ```xml
@@ -62,8 +107,8 @@ dependencies {
 </manifest>
 ```
 
-## 广告接入
-### 初始化
+## 4. 广告接入
+### 4.1 初始化
 在调用SDK请求广告代码前，开发者需要在Application#onCreate()方法中调用以下代码来初始化sdk。
 ```java
 public class App extends Application {
@@ -80,7 +125,7 @@ public class App extends Application {
 }
 ```
 
-### 开屏广告
+### 4.2 开屏广告
 
 当您的APP targetSdkVersion >= 23时，务必在广告请求前获取相应的权限。
 
@@ -167,7 +212,7 @@ public class OSplash{
 }
 ```
 
-### Banner广告
+### 4.3 Banner广告
 
 当您的APP targetSdkVersion >= 23时，务必在广告请求前获取相应的权限。
 
@@ -264,7 +309,7 @@ public class OBanner{
 }
 ```
 
-### 信息流广告
+### 4.4 信息流广告
 
 当您的APP targetSdkVersion >= 23时，务必在广告请求前获取相应的权限。
 

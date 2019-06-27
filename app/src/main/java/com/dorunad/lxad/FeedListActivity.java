@@ -88,6 +88,14 @@ public class FeedListActivity extends BaseActivity<ActivityFeedListBinding> {
                 hideLoading();
                 showToast("Error：" + e.getErrorCode() + " " + e.getMsg());
             }
+
+            /**
+             * 广告关闭：dislike
+             */
+            @Override
+            public void onAdClose() {
+                showToast("广告关闭");
+            }
         });
         //3.加载广告
         mOFeedList.load();

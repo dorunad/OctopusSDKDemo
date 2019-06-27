@@ -103,15 +103,17 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding> {
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == REQUEST_PERMISSION_CODE && hasAllPermissionsGranted(grantResults)) {
-            fetchSplashAD();
-        } else {
-            // 如果用户没有授权，那么应该说明意图，引导用户去设置里面授权。
-            Toast.makeText(this, "应用缺少必要的权限！请点击\"权限\"，打开所需要的权限。", Toast.LENGTH_LONG).show();
-            Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
-            intent.setData(Uri.parse("package:" + getPackageName()));
-            startActivity(intent);
-            finish();
+        if (requestCode == REQUEST_PERMISSION_CODE) {
+            if (hasAllPermissionsGranted(grantResults)) {
+                fetchSplashAD();
+            } else {
+                // 如果用户没有授权，那么应该说明意图，引导用户去设置里面授权。
+                Toast.makeText(this, "应用缺少必要的权限！请点击\"权限\"，打开所需要的权限。", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                intent.setData(Uri.parse("package:" + getPackageName()));
+                startActivity(intent);
+                finish();
+            }
         }
     }
 

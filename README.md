@@ -55,6 +55,7 @@
 | 版本         | 修订日期          | 说明  |
 |:------------:|:------------:| :------: |
 | v1.0.1        | 2019/6     |  初版  |
+| v1.0.2        | 2019/6     |  增加onAdClose()回调  |
 
 东润移动广告SDk(Android)是官方推出的移动广告SDK在Android平台上的版本（以下简称SDK）。
 
@@ -264,6 +265,14 @@ public class BannerActivity extends BaseActivity<ActivityBannerBinding> {
                 hideLoading();
                 showToast("Error：" + e.getErrorCode() + " " + e.getMsg());
             }
+            
+            /**
+             * 广告关闭：dislike
+             */
+            @Override
+            public void onAdClose() {
+                showToast("广告关闭");
+            }
         });
         //3.加载广告
         mOBanner.load();
@@ -361,6 +370,14 @@ public class FeedListActivity extends BaseActivity<ActivityFeedListBinding> {
             public void onNoAd(OAdException e) {
                 hideLoading();
                 showToast("Error：" + e.getErrorCode() + " " + e.getMsg());
+            }
+            
+            /**
+             * 广告关闭：dislike
+             */
+            @Override
+            public void onAdClose() {
+                showToast("广告关闭");
             }
         });
         //3.加载广告

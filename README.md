@@ -516,9 +516,11 @@ public class ORewardVideo{
 ```
 
 **4.5.3 服务器回调**
+
 服务器回调让您判定是否提供奖励给观看广告的用户。当用户成功看完广告时，以通知您用户完成了操作。需要提供给合作方回调地址。
 
 **SDK广告初始化**
+
 初始化时需要传入OAdSlot（如果服务器不需要根据userID判断，也不需要附加参数，可用`ORewardVideo(@NonNull Activity activity)`创建）。
 ```
  mORewardVideo = new ORewardVideo(this, new OAdSlot.Builder()
@@ -534,6 +536,7 @@ public class ORewardVideo{
 ```
 
 **回调方式**
+
 服务器会以 GET 方式请求第三方服务的回调链接，并拼接以下参数回传：
 
 user_id=%s&trans_id=%s&reward_name=%s&reward_amount=%d&extra=%s&sign=%s
@@ -562,8 +565,11 @@ if __name__ == "__main__":
     check_sign_raw = "%s:%s" % (app_security_key, trans_id)
     sign = hashlib.sha256(check_sign_raw).hexdigest()
 ```
+
 **返回约定**
+
 返回 json 数据，字段如下：
+
 |字段名称|字段定义|字段类型|备注|
 |----|---|---|---|
 |isValid|校验结果|bool|判定结果，是否发放奖励|

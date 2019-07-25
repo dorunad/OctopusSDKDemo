@@ -22,7 +22,7 @@ public class FeedListActivity extends BaseActivity<ActivityFeedListBinding> {
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setTitle("FEED AD");
+            actionBar.setTitle(getString(R.string.feed_ad));
         }
     }
 
@@ -39,9 +39,11 @@ public class FeedListActivity extends BaseActivity<ActivityFeedListBinding> {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_refresh:
-                showLoading();
-                //3.加载广告
-                mOFeedList.load();
+                if (mOFeedList!=null){
+                    showLoading();
+                    //3.加载广告
+                    mOFeedList.load();
+                }
                 break;
         }
     }

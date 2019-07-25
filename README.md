@@ -1,52 +1,20 @@
-<!------->
-<!--html:-->
-  <!--embed_local_images: false-->
-  <!--embed_svg: true-->
-  <!--offline: false-->
-  <!--toc: true-->
-
-<!--toc:-->
-  <!--depth_from: 1-->
-  <!--depth_to: 6-->
-  <!--ordered: false-->
-
-<!--export_on_save:-->
-  <!--html: true-->
-<!------->
 # OctopusSDKDemo Android
 
 [![release-image]][release-url] [![minSdkVersion-image]][minSdkVersion-url]
 
 
-<!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
-
-<!-- code_chunk_output -->
-
-- [ OctopusSDKDemo Android
-](#octopussdkdemo-android)
-  - [ 1. 简介
-](#1-简介)
-  - [ 2. 运行环境
-](#2-运行环境)
-  - [ 3. SDK包导入及权限配置
-](#3-sdk包导入及权限配置)
-    - [ 3.1 导入aar包
-](#31-导入aar包)
-    - [ 3.2 添加权限
-](#32-添加权限)
-  - [ 4. 广告接入
-](#4-广告接入)
-    - [ 4.1 初始化
-](#41-初始化)
-    - [ 4.2 开屏广告
-](#42-开屏广告)
-    - [ 4.3 Banner广告
-](#43-banner广告)
-    - [ 4.4 信息流广告
-](#44-信息流广告)
-
-<!-- /code_chunk_output -->
-
+- **目录**
+  - [1. 简介](#1-简介)
+  - [2. 运行环境](#2-运行环境)
+  - [3. SDK包导入及权限配置](#3-sdk包导入及权限配置)
+    - [3.1 导入aar包](#31-导入aar包)
+    - [3.2 添加权限](#32-添加权限)
+  - [4. 广告接入](#4-广告接入)
+    - [4.1 初始化](#41-初始化)
+    - [4.2 开屏广告(OSplash)](#42-开屏广告osplash)
+    - [4.3 Banner广告(OBanner)](#43-banner广告obanner)
+    - [4.4 信息流广告(OFeedList)](#44-信息流广告ofeedlist)
+    - [4.5 激励视频广告(ORewardVideo)](#45-激励视频广告orewardvideo)
 
 
 ## 1. 简介
@@ -56,6 +24,7 @@
 |:------------:|:------------:| :------: |
 | v1.0.1        | 2019/6     |  初版  |
 | v1.0.2        | 2019/6     |  增加onAdClose()回调  |
+| v1.0.3        | 2019/7     |  增加激励视频广告
 
 东润移动广告SDk(Android)是官方推出的移动广告SDK在Android平台上的版本（以下简称SDK）。
 
@@ -78,7 +47,7 @@ repositories {
 }
 
 dependencies {
-    implementation(name:'OctopusADSDK_v1.0.1_debug',ext:'aar')
+    implementation(name:'OctopusADSDK_v1.0.3_debug',ext:'aar')
 }
 ```
 点击 `Sync Now` 等待同步结束。
@@ -119,18 +88,19 @@ public class App extends Application {
          /**
          * SDK初始化
          * public OctopusADSDK init(Context context, boolean isDebug)
-         * isDebug为开启测试模式（不计费），开启SDK日志 正式上线前关闭!
+         * isDebug为开启测试模式（不计费），开启SDK日志 正式上线前关闭!!!
          */
         OctopusADSDK.getInstance().init(this, true);
     }
 }
 ```
+详细代码参考Demo中的base/App。
 
-### 4.2 开屏广告
+### 4.2 开屏广告(OSplash)
 
 当您的APP targetSdkVersion >= 23时，务必在广告请求前获取相应的权限。
 
-**接入示例**
+**4.2.1 接入示例**
 ```java
 public class SplashActivity extends BaseActivity<ActivitySplashBinding> {
     /**
@@ -190,7 +160,9 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding> {
     }
 }
 ```
-**主要API**
+详细代码参考Demo中的SplashActivity。
+
+**4.2.2 OSplash主要API**
 ```java
 public class OSplash{
     /**
@@ -213,13 +185,13 @@ public class OSplash{
 }
 ```
 
-### 4.3 Banner广告
+### 4.3 Banner广告(OBanner)
 
 当您的APP targetSdkVersion >= 23时，务必在广告请求前获取相应的权限。
 
 **当界面关闭时务必调用`mOBanner.destroy()`释放资源。**
 
-**接入示例**
+**4.3.1 接入示例**
 ```java
 public class BannerActivity extends BaseActivity<ActivityBannerBinding> {
     /**
@@ -288,7 +260,9 @@ public class BannerActivity extends BaseActivity<ActivityBannerBinding> {
     }
 }
 ```
-**主要API**
+详细代码参考Demo中的BannerActivity。
+
+**4.3.2 OBanner主要API**
 ```java
 public class OBanner{
     /**
@@ -318,7 +292,7 @@ public class OBanner{
 }
 ```
 
-### 4.4 信息流广告
+### 4.4 信息流广告(OFeedList)
 
 当您的APP targetSdkVersion >= 23时，务必在广告请求前获取相应的权限。
 
@@ -326,7 +300,7 @@ public class OBanner{
 
 每次请求返回一个广告，如需多个信息流广告，可多次调用请求。
 
-**示例代码**
+**4.4.1 示例代码**
 ```java
 public class FeedListActivity extends BaseActivity<ActivityFeedListBinding> {
     /**
@@ -397,8 +371,9 @@ public class FeedListActivity extends BaseActivity<ActivityFeedListBinding> {
     }
 }
 ```
+详细代码参考Demo中的FeedListActivity。
 
-**主要API**
+**4.4.2 OFeedList主要API**
 ```java
 public class OFeedList{
     /**
@@ -426,8 +401,181 @@ public class OFeedList{
     public final void destroy() { }
 }
 ```
+### 4.5 激励视频广告(ORewardVideo)
+当您的APP targetSdkVersion >= 23时，务必在广告请求前获取相应的权限。
 
-[release-image]:https://img.shields.io/badge/release-v1.0.1-brightgreen.svg
+该广告的效果为观看完毕视频广告，发放奖励给用户。可配置服务器回调让您判定是否提供奖励给观看广告的用户。
+支持的广告尺寸： 全屏竖屏播放和横屏，默认竖屏（观看效果更佳）。
+
+正式接入前需要提供：奖励名称、奖励数量。
+
+**4.5.1 示例代码**
+```java
+public class RewardVideoActivity extends BaseActivity<ActivityRewardVideoBinding> {
+    /**
+     * 获取激励视频广告
+     */
+    public void fetchRewardVideoAD() {
+        //1.实例化激励视频广告
+        mORewardVideo = new ORewardVideo(this);
+        //2.设置激励视频广告加载监听
+        mORewardVideo.setORewardVideoListener(new ORewardVideo.ORewardVideoListener() {
+            /**
+             * 广告加载
+             */
+            @Override
+            public void onAdLoad() {
+                showToast("广告加载");
+            }
+
+            /**
+             * 广告展示
+             */
+            @Override
+            public void onAdShow() {
+                showToast("广告展示");
+            }
+
+            @Override
+            public void onAdClicked() {
+                showToast("广告被点击");
+            }
+
+            /**
+             * 广告点击
+             */
+            @Override
+            public void onAdClose() {
+                showToast("广告被关闭");
+            }
+
+            /**
+             * 广告异常
+             * @param e
+             */
+            @Override
+            public void onNoAd(OAdException e) {
+                showToast("Error：" + e.getErrorCode() + " " + e.getMsg());
+            }
+
+            /**
+             * 视频播放结束
+             */
+            @Override
+            public void onVideoComplete() {
+                showToast("视频播放结束");
+            }
+
+            /**
+             * 视频广告播完验证奖励有效性回调
+             * @param rewardVerify 是否有效
+             * @param rewardAmount 奖励数量
+             * @param rewardName 奖励名称
+             */
+            @Override
+            public void onRewardVerify(boolean rewardVerify, int rewardAmount, String rewardName) {
+                showToast("是否有效：" + rewardVerify + " 奖励数量：" + rewardAmount + " 奖励名称：" + rewardName);
+            }
+        });
+        //3. 加载广告
+        mORewardVideo.load();
+    }
+}
+```
+详细代码参考Demo中的RewardVideoActivity。
+
+**4.5.2 ORewardVideo主要API**
+```java
+public class ORewardVideo{
+     /**
+     * 激励视频广告构造方法（不需要服务器判定）
+     *
+     * @param activity 激励视频广告展示的Activity
+     */
+    public ORewardVideo(@NonNull Activity activity) {}
+
+    /**
+     * 激励视频广告构造方法（需要服务器判定）
+     * @param activity
+     * @param oAdSlot 数据槽。提供校验的奖励名称、奖励数量、userId（可为空）
+     */
+    public ORewardVideo(@NonNull Activity activity, @NonNull OAdSlot oAdSlot) {}
+
+    /**
+     * 设置激励视频广告监听
+     * @param ORewardVideoListener
+     */
+    public void setORewardVideoListener(ORewardVideoListener ORewardVideoListener) {}
+
+    /**
+     * 设置下载类广告下载状态监听
+     * @param ODownloadListener
+     */
+    public void setODownloadListener(ODownloadListener ODownloadListener) {}
+}
+```
+
+**4.5.3 服务器回调**
+服务器回调让您判定是否提供奖励给观看广告的用户。当用户成功看完广告时，以通知您用户完成了操作。需要提供给合作方回调地址。
+
+**SDK广告初始化**
+初始化时需要传入OAdSlot（如果服务器不需要根据userID判断，也不需要附加参数，可用`ORewardVideo(@NonNull Activity activity)`创建）。
+```
+ mORewardVideo = new ORewardVideo(this, new OAdSlot.Builder()
+               //用户标识。可为空
+               .setUserID("9527")
+               //奖励名称
+               .setRewardName("金币")
+               //奖励数量
+               .setRewardAmount(100)
+               //附加参数，可选
+               .setMediaExtra("")
+               .build());
+```
+
+**回调方式**
+服务器会以 GET 方式请求第三方服务的回调链接，并拼接以下参数回传：
+
+user_id=%s&trans_id=%s&reward_name=%s&reward_amount=%d&extra=%s&sign=%s
+
+|字段名称|字段定义|字段类型|备注|
+|----|---|---|---|
+|user_id|用户id|String|调用SDK透传，应用对用户的唯一标识|
+|trans_id|交易id|String|完成观看的唯一交易ID|
+|reward_name|奖励名称|String|媒体平台配置或调用SDK传入|
+|reward_amount|奖励数量|int|媒体平台配置或调用SDK传入|
+|extra|附加参数（可选）|String|调用SDK传入并透传，如无需要则为空|
+|sign|签名|String|SecurityKey:transId拼接的SHA256加密后的签名|
+
+**签名生成方式**
++ app_security_key: 媒体平台新建奖励视频代码位获取到的密钥 SecurityKey
++ transId：交易id 
++ sign = sha256(SecurityKey:transId)
+
+python示例：
+```python
+import hashlib
+
+if __name__ == "__main__":
+    trans_id = "6FEB23ACB0374985A2A52D282EDD5361u6643"
+    app_security_key = "7ca31ab0a59d69a42dd8abc7cf2d8fbd"
+    check_sign_raw = "%s:%s" % (app_security_key, trans_id)
+    sign = hashlib.sha256(check_sign_raw).hexdigest()
+```
+**返回约定**
+返回 json 数据，字段如下：
+|字段名称|字段定义|字段类型|备注|
+|----|---|---|---|
+|isValid|校验结果|bool|判定结果，是否发放奖励|
+示例：
+```json
+{
+    "isValid": true
+}
+```
+
+
+[release-image]:https://img.shields.io/badge/release-v1.0.3-brightgreen.svg
 [release-url]:https://github.com/dorunad/OctopusSDKDemo/tree/master/app/libs
 
 [minSdkVersion-image]:https://img.shields.io/badge/minSdkVersion-14-yellowgreen.svg

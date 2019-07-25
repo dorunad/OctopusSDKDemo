@@ -23,7 +23,7 @@ public class BannerActivity extends BaseActivity<ActivityBannerBinding> {
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setTitle("BANNER AD");
+            actionBar.setTitle(getString(R.string.banner_ad));
         }
     }
 
@@ -38,9 +38,11 @@ public class BannerActivity extends BaseActivity<ActivityBannerBinding> {
     }
 
     public void onClick(View view) {
-        //3.加载广告
-        showLoading();
-        mOBanner.load();
+        if (mOBanner != null) {
+            //3.加载广告
+            showLoading();
+            mOBanner.load();
+        }
     }
 
     /**
@@ -86,6 +88,7 @@ public class BannerActivity extends BaseActivity<ActivityBannerBinding> {
                 hideLoading();
                 showToast("Error：" + e.getErrorCode() + " " + e.getMsg());
             }
+
             /**
              * 广告关闭：dislike
              */

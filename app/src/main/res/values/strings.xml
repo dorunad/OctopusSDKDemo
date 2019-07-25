@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Octopus Demo</string>
+    <string name="permissions_off">PERMISSIONS：OFF</string>
+    <string name="permissions_on">PERMISSIONS：ON</string>
+    <string name="splash_ad">Splash AD</string>
+    <string name="banner_ad">Banner AD</string>
+    <string name="feed_ad">FEED AD</string>
+    <string name="octopus_v1_0_1">Octopus v1.0.1</string>
+    <string name="rewardvideo_ad">REWARDVIDEO AD（激励视频）</string>
 </resources>
